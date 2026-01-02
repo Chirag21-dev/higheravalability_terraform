@@ -18,14 +18,13 @@ resource "aws_subnet" "public" {
   }
 }
 
-resource "aws_subnet" "public" {
-  count                   = var.public_subnet_count
-  vpc_id                  = aws_vpc.main.id
-  cidr_block              = element(var.public_subnet_cidrs, count.index)
-  availability_zone       = element(var.availability_zones, count.index)
-  map_public_ip_on_launch = true
+resource "aws_subnet" "private" {
+  count             = var.private_subnet_count
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = element(var.private_subnet_cidrs, count.index)
+  availability_zone = element(var.availability_zones, count.index)
   tags = {
-    Name = "public-subnet-${count.index + 1}"
+    Name = "private-subnet-${count.index + 1}"
   }
 }
 
