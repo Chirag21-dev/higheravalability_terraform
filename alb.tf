@@ -2,7 +2,7 @@ resource "aws_lb" "test" {
   name               = "test-lb-tf"
   internal           = false
   load_balancer_type = "application"
-  security_groups    = [aws_security_group.lb_sg.id]
+  security_groups    = [aws_security_group.alb_sg.id]
   subnets            = aws_subnet.public[*].id
 
   enable_deletion_protection = true
@@ -32,7 +32,7 @@ resource "aws_lb_target_group" "app_tg" {
 }
 
 resource "aws_lb_listener" "http_listener" {
-  load_balancer_arn = aws_lb.app_lb.arn
+  load_balancer_arn = aws_lb.test.arn
   port              = 80
   protocol          = "HTTP"
 
